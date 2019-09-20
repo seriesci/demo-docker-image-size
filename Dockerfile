@@ -1,9 +1,9 @@
 
 FROM golang:1.13
 
-RUN apt-get update -y
-RUN apt-get upgrade -y
-RUN rm -rf /var/lib/apt/lists/*
+RUN apt-get update -y && \
+    apt-get upgrade -y && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /src
 
