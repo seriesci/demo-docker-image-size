@@ -12,14 +12,14 @@ jobs:
       - setup_remote_docker
 
       - run:
-          name: Build image
+          name: Build docker image
           command: docker build -t seriesci/dockersize .
 
-      # - run:
-      #     name: POST SeriesCI
-      #     command: |
-      #       docker images --format "{{.Repository}} {{.Size}}" | grep dockersize | awk '{print $2+0}' | xargs -I {} curl \
-      #         --header "Authorization: Token ${TOKEN}" \
-      #         --data value="{}" \
-      #         --data sha="${CIRCLE_SHA1}" \
-      #         https://seriesci.com/api/repos/seriesci/dockersize/size/values
+      - run:
+          name: POST image size to SeriesCI
+          command: |
+            docker images --format "{{.Repository}} {{.Size}}" | grep dockersize | awk '{print $2+0}' | xargs -I {} curl \
+              --header "Authorization: Token ${TOKEN}" \
+              --data value="{}" \
+              --data sha="${CIRCLE_SHA1}" \
+              https://seriesci.com/api/repos/seriesci/dockersize/size/values
