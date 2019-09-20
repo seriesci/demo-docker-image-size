@@ -1,9 +1,5 @@
 
-FROM golang:1.13
-
-RUN apt-get update -y && \
-    apt-get upgrade -y && \
-    rm -rf /var/lib/apt/lists/*
+FROM golang:1.13-alpine
 
 WORKDIR /src
 
